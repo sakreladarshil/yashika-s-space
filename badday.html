@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Yashika Repair Kit</title>
+
+<style>
+
+body{
+margin:0;
+background:#120d1d;
+font-family:'Segoe UI',sans-serif;
+color:white;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+min-height:100vh;
+
+padding:20px;
+
+text-align:center;
+}
+
+.container{
+max-width:700px;
+width:100%;
+}
+
+h1{
+color:#ff9de2;
+
+text-shadow:
+0 0 10px #ff1493;
+
+margin-bottom:20px;
+}
+
+#message{
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,20,147,.3);
+
+border-radius:30px;
+
+padding:25px;
+
+min-height:120px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#ffc7ec;
+
+font-size:1.15rem;
+
+line-height:1.6;
+
+margin-bottom:25px;
+
+box-shadow:
+0 0 20px rgba(255,20,147,.15);
+}
+
+button{
+
+border:none;
+
+background:#ff1493;
+
+color:white;
+
+padding:16px 28px;
+
+border-radius:999px;
+
+font-size:1rem;
+
+font-weight:bold;
+
+cursor:pointer;
+
+box-shadow:none;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+box-shadow:
+0 0 15px #ff1493,
+0 0 30px rgba(255,20,147,.8);
+
+}
+
+.nav{
+margin-top:25px;
+}
+
+.nav a{
+
+text-decoration:none;
+
+color:white;
+
+background:#ff1493;
+
+padding:12px 20px;
+
+border-radius:999px;
+
+box-shadow:
+0 0 15px #ff1493;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+In Case Today Wasn't Nice
+</h1>
+
+<div id="message">
+Press the button.
+</div>
+
+<button onclick="randomMessage()">
+I Wanna Smash My Head
+</button>
+
+<div class="nav">
+<br><br>
+<a href="learned.html">← Back</a>  <a href="final.html">Final Page →</a>
+</div>
+
+</div>
+
+<script>
+
+const messages = [
+
+"You're doing better than you think, Take a break and drink water.",
+
+"Take a break. The world can wait five minutes.",
+
+"Life owe you an apology, and its probably working on it.",
+
+"You don't have to solve everything tonight.",
+
+"Someone out there is very glad you exist.",
+
+"Drink water. Yes, right now.",
+
+"Did you eat dinner?",
+
+"Your future self is already proud of you for trying.",
+
+"The bad day will end. You're staying.",
+
+"You're much kinder than you give yourself credit for.",
+
+"Your smile has fixed more days than you know.",
+
+"You deserve the same kindness you give others.",
+
+"If babies trust you, that's already a massive achievement.",
+
+"Your voice is still pretty, lol yes :P",
+
+"You matter more than your brain lets you believe sometimes.",
+
+"You've survived every bad day so far...This one will too pass away.",
+
+"Take one step. Then another. That's enough.",
+
+"You're allowed to rest.",
+
+"Whenever you feel like talking, make sure, im always up there...just make a message or call.",
+
+"The people who care about you would disagree with your worst thoughts."
+
+];
+
+function randomMessage(){
+
+let random =
+Math.floor(Math.random()*messages.length);
+
+document.getElementById("message").innerHTML =
+messages[random];
+
+}
+
+</script>
+
+</body>
+</html>

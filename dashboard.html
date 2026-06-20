@@ -1,0 +1,395 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dashboard</title><style>
+
+body{
+    margin:0;
+    background:#120d1d;
+    font-family:'Segoe UI',sans-serif;
+    color:white;
+    padding:20px;
+    max-width:900px;
+margin:auto;
+}
+
+h1{
+
+    text-align:center;
+
+    color:#ff9de2;
+
+    margin-bottom:25px;
+
+    font-size:2.2rem;
+
+    text-shadow:
+    0 0 12px rgba(255,20,147,.6);
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,minmax(0,1fr));
+
+gap:12px;
+
+}
+
+.card{
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:18px;
+
+    height:95px;
+
+    text-align:center;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.3s;
+
+    box-shadow:
+    0 0 12px rgba(255,20,147,.12);
+
+    cursor:pointer;
+
+}
+.card:hover{
+
+transform:translateY(-4px);
+
+border-color:#ff1493;
+
+box-shadow:
+0 0 25px rgba(255,20,147,.35);
+
+}
+.card h2{
+
+    font-size:1.5rem;
+
+margin-bottom:6px;
+
+    margin:0 0 8px 0;
+
+    color:#ff6bcf;
+
+    text-shadow:
+    0 0 8px rgba(255,20,147,.8);
+
+}
+
+.card p{
+
+    color:#ffb6e8;
+
+    opacity:.9;
+
+    font-size:.62rem;
+
+    line-height:1;
+
+    margin:0;
+
+    text-align:center;
+
+}
+
+.big{
+
+    transform:scale(1.05);
+
+height:125px;
+
+    border:1px solid #ff1493;
+
+    box-shadow:
+    0 0 20px rgba(255,20,147,.5),
+    0 0 40px rgba(255,20,147,.25);
+
+}
+
+.timer{
+
+    font-size:0.55rem;
+
+    font-weight:700;
+
+line-height:1.1;   
+
+    color:#ff6bcf;
+
+    text-shadow:
+    0 0 8px rgba(255,20,147,.8);
+
+    margin:3px 0;
+
+}
+.nav{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:18px;
+
+margin-top:20px;
+
+margin-bottom:30px;
+
+}
+.nav a{
+
+text-decoration:none;
+
+color:white;
+
+background:#ff1493;
+
+padding:14px 24px;
+
+border-radius:999px;
+
+min-width:120px;
+
+text-align:center;
+
+font-weight:600;
+
+box-shadow:
+0 0 10px rgba(255,20,147,.7),
+0 0 30px rgba(255,20,147,.4);
+
+}
+
+.nav a:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 0 20px rgba(255,20,147,.9),
+0 0 40px rgba(255,20,147,.5);
+
+}
+
+</style></head><body><h1>Things I Know About You</h1>
+
+<div class="grid">
+<div class="card">
+<h2>👶</h2>
+<p><b>Babylover</b></p>
+<p>Babies &gt; literally everyone else.</p>
+</div>
+
+<div class="card">
+<h2>📱</h2>
+<p><b>Telegram</b></p>
+
+<div id="telegramCrashTimer" class="timer"></div>
+
+<p>A historical tragedy.</p>
+</div>
+
+<div class="card">
+<h2>🧠</h2>
+<p><b>Smartness</b></p>
+<p>6.05 is criminally underrated. It should be more.</p>
+</div>
+
+<div class="card">
+<h2>📱</h2>
+<p><b>Idk</b></p>
+<p>no idea what to write here lol.</p>
+</div>
+
+<div class="card">
+<h2>⏳</h2>
+<p><b>Since We Met</b></p>
+
+<div id="meetTimer" class="timer"></div>
+
+<p>Not very long. Yet long enough.</p>
+</div>
+
+<div class="card">
+<h2>😔</h2>
+<p><b>Embarrassment</b></p>
+<p>Count: 2</p>
+</div>
+
+<div class="card">
+<h2>📞</h2>
+<p><b>This one is empty</b></p>
+<p>coz im out of ideas.</p>
+</div>
+
+<div class="card">
+<h2>😎</h2>
+<p><b>Coolness</b></p>
+<p>#1 Papa<br>#2 Yashika</p>
+</div>
+
+<div class="card">
+<h2>🔫</h2>
+<p><b>Fame</b></p>
+<p>You know shooting, i know nothing ;-;</p>
+</div></div><div class="nav">
+<a href="index.html">← Back</a>
+<a href="learned.html">Continue →</a>
+</div><div id="overlay"></div>
+
+<div id="popup">
+
+<div id="closeBtn">✕</div>
+
+<h2 id="popupTitle"></h2>
+
+<div id="popupContent"></div>
+
+</div>
+<script>
+
+function formatTimer(startDate){
+
+    let now = new Date();
+
+    let diff = now - startDate;
+
+    let days = Math.floor(diff / (1000*60*60*24));
+
+    let hours = Math.floor(
+        (diff % (1000*60*60*24))
+        /(1000*60*60)
+    );
+
+    let minutes = Math.floor(
+        (diff % (1000*60*60))
+        /(1000*60)
+    );
+
+    let seconds = Math.floor(
+        (diff % (1000*60))
+        /1000
+    );
+
+    return `
+${days} Days<br>
+${hours} Hours<br>
+${minutes} Minutes<br>
+${seconds} Seconds
+`;
+}
+const popup =
+document.getElementById("popup");
+
+const overlay =
+document.getElementById("overlay");
+
+const popupTitle =
+document.getElementById("popupTitle");
+
+const popupContent =
+document.getElementById("popupContent");
+
+function openPopup(title,text){
+
+popupTitle.innerHTML=title;
+
+popupContent.innerHTML=text;
+
+popup.classList.add("show");
+
+overlay.classList.add("show");
+
+}
+
+function closePopup(){
+
+popup.classList.remove("show");
+
+overlay.classList.remove("show");
+
+}
+
+document
+.getElementById("closeBtn")
+.onclick=closePopup;
+
+overlay.onclick=closePopup;
+function updateTimers(){
+
+// Since We Met
+let meetStart = new Date("2026-06-15T18:22:00");
+let meetDiff = new Date() - meetStart;
+
+let md = Math.floor(meetDiff/(1000*60*60*24));
+let mh = Math.floor((meetDiff%(1000*60*60*24))/(1000*60*60));
+let mm = Math.floor((meetDiff%(1000*60*60))/(1000*60));
+let ms = Math.floor((meetDiff%(1000*60))/1000);
+
+let meetBox = document.getElementById("meetTimer");
+
+if(meetBox){
+meetBox.innerHTML =
+`${md}d ${mh}h<br>${mm}m ${ms}s`;
+}
+
+
+// Telegram Timer
+let tgStart = new Date("2026-06-16T21:44:00");
+let tgDiff = new Date() - tgStart;
+
+let td = Math.floor(tgDiff/(1000*60*60*24));
+let th = Math.floor((tgDiff%(1000*60*60*24))/(1000*60*60));
+let tm = Math.floor((tgDiff%(1000*60*60))/(1000*60));
+let ts = Math.floor((tgDiff%(1000*60))/1000);
+
+let telegramBox = document.getElementById("telegramTimer");
+
+if(telegramBox){
+telegramBox.innerHTML =
+`${td}d ${th}h<br>${tm}m ${ts}s`;
+}
+
+
+// Birthday Countdown
+let birthdayBox = document.getElementById("birthdayTimer");
+
+if(birthdayBox){
+
+let nextBirthday = new Date("2027-02-18");
+let bDiff = nextBirthday - new Date();
+
+let bd = Math.floor(bDiff/(1000*60*60*24));
+let bh = Math.floor((bDiff%(1000*60*60*24))/(1000*60*60));
+let bm = Math.floor((bDiff%(1000*60*60))/(1000*60));
+let bs = Math.floor((bDiff%(1000*60))/1000);
+
+birthdayBox.innerHTML =
+`${bd}d ${bh}h<br>${bm}m ${bs}s`;
+
+}
+
+}
+
+updateTimers();
+setInterval(updateTimers,1000);
+
+</script>
+</body>
+</html>

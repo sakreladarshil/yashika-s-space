@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Yashika</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #120d1d;
+
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        #orb {
+            position: absolute;
+
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            background: #ff1493;
+
+            box-shadow:
+                0 0 20px #ff1493,
+                0 0 50px #ff1493,
+                0 0 100px #ff1493,
+                0 0 200px #ff1493;
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(1);
+                opacity: .5;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: .5;
+            }
+
+        }
+
+        #message {
+
+            width: 85%;
+
+            text-align: center;
+
+            color: #ff9de2;
+
+            font-size: 1.25rem;
+            font-weight: 300;
+            letter-spacing: 0.4px;
+
+            line-height: 1.3;
+
+            white-space: pre-line;
+
+            opacity: 0;
+
+            transition: opacity 2s ease;
+
+            position: absolute;
+        }
+
+        #continueBtn {
+
+            position: absolute;
+
+            bottom: 80px;
+
+            padding: 14px 28px;
+
+            border: none;
+
+            border-radius: 40px;
+
+            background: #ff1493;
+
+            color: white;
+
+            font-size: 1rem;
+
+            opacity: 0;
+
+            box-shadow: none;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        #buttonContainer {
+
+            position: absolute;
+
+            bottom: 80px;
+
+            display: flex;
+
+            gap: 12px;
+
+        }
+
+        #skipBtn {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 20px;
+
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 30px;
+
+            background: rgba(255, 255, 255, .08);
+
+            color: #ff9de2;
+
+            font-size: .9rem;
+
+            cursor: pointer;
+
+            z-index: 9999;
+
+        }
+
+        #continueBtn:hover {
+            transform: scale(1.05);
+        }
+
+        #continueBtn:hover,
+        #skipBtn:hover {
+
+            box-shadow:
+                0 0 15px #ff1493,
+                0 0 30px rgba(255, 20, 147, .8);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="orb"></div>
+
+    <div id="message"></div>
+
+    <div id="buttonContainer">
+
+        <button id="skipBtn">
+            Skip →
+        </button>
+
+        <button id="continueBtn">
+            Continue →
+        </button>
+
+    </div>
+
+    <script>
+
+        const messages = [
+
+            {
+                text: `Hello Yashika`, time: 3000
+            },
+
+            {
+                text: `Before you continue...
+
+I need exactly 2 minutes of your attention.`, time: 4000
+            },
+
+            {
+                text: `Don't worry.
+
+This isn't a birthday surprise.`, time: 3000
+            },
+
+            {
+                text: `And no...
+
+I didn't suddenly become so productive in coding.`, time: 3000
+            },
+
+            { text: "I just wanted to make something.", time: 3000 },
+
+            {
+                text: `Something you could open on a random day.
+
+Or a bad day.`, time: 5500
+            },
+
+            { text: "Or one of those days where life decides to be unnecessarily annoying.", time: 5500 },
+
+            {
+                text: `A place filled with little things I wanted to remember.
+
+The things you've said.
+
+The things I've learned.
+
+The random moments that made me laugh.
+
+And a few things I think you should know.`, time: 8000
+            },
+
+            {
+                text: `Not because today is a special day.
+
+Not because there's some big occasion.`, time: 6000
+            },
+
+            { text: "Just because...", time: 1500 },
+
+            { text: "Sometimes people deserve nice things.", time: 3000 },
+
+            { text: "And I think you deserve one too.", time: 3000 },
+
+            { text: "So...", time: 1000 },
+
+            { text: "Welcome.", time: 3000 },
+            { text: "To the tiny corner on the internet, dedicated only for you...", time: 4500 }
+
+        ];
+
+        const msg = document.getElementById("message");
+        const orb = document.getElementById("orb");
+        const btn = document.getElementById("continueBtn");
+
+        let current = 0;
+
+        function next() {
+
+            if (current >= messages.length) {
+
+                msg.style.opacity = 0;
+
+                setTimeout(() => {
+                    btn.style.opacity = 1;
+                    document.getElementById("skipBtn").style.display = "none";
+
+                }, 1000);
+
+                return;
+            }
+
+            msg.style.opacity = 0;
+
+            setTimeout(() => {
+
+                msg.innerHTML = messages[current].text;
+                msg.style.opacity = 1;
+
+                if (current === 0) {
+                    orb.style.display = "none";
+                }
+
+                current++;
+
+                setTimeout(next, messages[current - 1].time);
+
+            }, 1500);
+        }
+
+        setTimeout(() => {
+            next();
+        }, 2000);
+
+        btn.onclick = () => {
+            location.href = "dashboard.html";
+        }
+        document.getElementById("skipBtn").onclick = () => {
+
+            current = messages.length;
+
+            msg.style.opacity = 0;
+
+            orb.style.display = "none";
+
+            document.getElementById("skipBtn").style.display = "none";
+
+            btn.style.opacity = 1;
+
+        }
+
+    </script>
+</body>
+
+</html>
